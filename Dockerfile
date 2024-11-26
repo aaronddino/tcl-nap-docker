@@ -1,5 +1,5 @@
 # Base Image: Ubuntu 18.04
-FROM ubuntu:18.04
+FROM amd64/ubuntu:18.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -7,7 +7,7 @@ ENV PATH="/usr/bin:/usr/local/bin:$PATH"
 ENV TCLLIBPATH="/usr/local/lib/nap6.4:$TCLLIBPATH"
 ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 
-# Install dependencies required for libnap6.4.so and TCL
+# Install dependencies required for libnap6.4.so and TCL, including missing libraries
 RUN apt-get update && apt-get install -y \
     build-essential \
     tcl8.5 \
@@ -27,7 +27,14 @@ RUN apt-get update && apt-get install -y \
     libldap2-dev \
     libkrb5-dev \
     liblzma-dev \
+    libnetcdf13 \
+    libhdf4-0-alt \
+    software-properties-common \
     && apt-get clean
+
+# Add the PROJ repository to get the correct PROJ version
+RUN add-apt-repository ppa:ubuntugis/ppa && apt-get update && \
+    apt-get install -y libproj-dev libproj13
 
 # Symlink for tclsh
 RUN ln -s /usr/bin/tclsh8.5 /usr/bin/tclsh
