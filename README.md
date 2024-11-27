@@ -2,20 +2,22 @@
 Containerisation (portable runtime execution) of TCL (8.5) Environment with NAP (6.4) installed. Used for testing scientific libraries written in TCL with the NAP library.
 
 ## Docker Image
-A working version of the image is available on Docker Hub:
+A working version of the image is available on Docker Hub: https://hub.docker.com/r/aaronddino/tcl-nap
 ```
 docker pull aaronddino/tcl-nap
 ```
+Run instructions are available on the Docker Hub page.
+
 
 
 ## Self-Setup
 
-To Build
+### Build
 ```
 docker build -t tcl-nap-env .
 ```
 
-## Start
+### Start
 To Run
 ```
 docker run -it tcl-nap-env
