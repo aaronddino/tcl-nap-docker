@@ -42,8 +42,8 @@ RUN ln -s /usr/bin/tclsh8.5 /usr/bin/tclsh
 # Copy NAP files into the container
 COPY lib/nap6.4 /usr/local/lib/nap6.4
 
-# Debug: Output the pkgIndex.tcl file to verify its presence
-RUN cat /usr/local/lib/nap6.4/pkgIndex.tcl
+# Copy the init.tcl script into the container to run on startup
+COPY init.tcl /usr/local/lib/init.tcl
 
 # Copy libnap6.4.so into the container
 COPY lib/libnap6.4.so /usr/local/lib/libnap6.4.so
@@ -51,5 +51,6 @@ COPY lib/libnap6.4.so /usr/local/lib/libnap6.4.so
 # Set working directory
 WORKDIR /app
 
-# Default command to run TCLSH
-CMD ["tclsh"]
+# Default command to run TCLSH with sourcing init.tcl on startup
+CMD ["tclsh", "-c", "source /usr/local/lib/init.tcl; interact"]
+
