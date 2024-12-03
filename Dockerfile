@@ -1,6 +1,10 @@
 # Base Image: Ubuntu 18.04
 FROM amd64/ubuntu:18.04
 
+# Maintainer Informations
+LABEL maintainer="Aarond Dino"
+LABEL version="1.0"
+
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/usr/bin:/usr/local/bin:$PATH"
